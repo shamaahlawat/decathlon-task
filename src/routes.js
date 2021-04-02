@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 // import Loader from './components/Loader';
 
 const LoginPage = lazy(() => {
-   const Structure = import('./containers/loginPage');
+   const Structure = import('./containers/Authentication/LoginPage');
     return Promise.all([Structure, new Promise(resolve => setTimeout(resolve, 300))]).then(
         ([moduleExports]) => moduleExports
     );
