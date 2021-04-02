@@ -1,0 +1,21 @@
+body *{
+    box-sizing: border-box;
+}
+::-webkit-scrollbar {
+    height: rem(4);
+    width: rem(4);
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(#979797, 0.3);
+    border-radius: rem(10);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #999999;
+    border-radius: rem(10);
+}
+
+body{
+    font-family: 'McKinsey Sans Regular';
+}
