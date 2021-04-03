@@ -1,0 +1,31 @@
+.cartContainer{
+    .cartParent{
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 40px;
+        .cartWrapper{
+            background: #bedeef;
+            padding: 20px;
+            border-radius: 20px;
+            margin: 15px;
+        }
+        .box-shadow{
+            padding: 20px;
+            border-radius: 50px;
+            box-shadow: 0 0 20px 0 rgb(0 0 0 / 10%);
+            background-color: #ffffff
+        }
+        .cartItems{
+            padding: 10px;
+            border-radius: 50px;
+            box-shadow: 0 0 20px 0 rgb(0 0 0 / 10%);
+            background-color: #ffffff;
+            margin: 15px;
+            .itemDetails{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+            }
+        }
+    }
+}

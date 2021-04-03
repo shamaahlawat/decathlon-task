@@ -19,3 +19,10 @@ body *{
 body{
     font-family: 'McKinsey Sans Regular';
 }
+
+.flex{
+    display:flex
+}
+.flex-space-around{
+    justify-content: space-around;
+}

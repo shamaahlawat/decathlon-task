@@ -9,6 +9,20 @@ const LoginPage = lazy(() => {
     );
 });
 
+const DashboardPage = lazy(() => {
+    const Structure = import('./containers/DashboardPage');
+     return Promise.all([Structure, new Promise(resolve => setTimeout(resolve, 300))]).then(
+         ([moduleExports]) => moduleExports
+     );
+ });
+
+ const Cart = lazy(() => {
+    const Structure = import('./containers/Cart');
+     return Promise.all([Structure, new Promise(resolve => setTimeout(resolve, 300))]).then(
+         ([moduleExports]) => moduleExports
+     );
+ });
+
 class Routes extends React.Component {
     constructor(props) {
         super(props)
@@ -22,11 +36,29 @@ class Routes extends React.Component {
             <Fragment>
                 <Switch>
                     <Route
-                        path="/"
+                        path="/login"
                         exact
                         render={props => (
                             <Suspense fallback={<div>Loading ...</div>}>
                                 <LoginPage {...props} />
+                            </Suspense>
+                        )}
+                    />
+                      <Route
+                        path="/"
+                        exact
+                        render={props => (
+                            <Suspense fallback={<div>Loading ...</div>}>
+                                <DashboardPage {...props} />
+                            </Suspense>
+                        )}
+                    />
+                       <Route
+                        path="/cart"
+                        exact
+                        render={props => (
+                            <Suspense fallback={<div>Loading ...</div>}>
+                                <Cart {...props} />
                             </Suspense>
                         )}
                     />

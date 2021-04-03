@@ -1,0 +1,11 @@
+.dashboardContainer{
+    .MuiAppBar-positionStatic{
+        position: fixed;
+        top: 0;
+    }
+    .productList{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 70px 25px 25px 25px;
+    }
+}
