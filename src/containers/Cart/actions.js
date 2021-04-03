@@ -2,7 +2,8 @@ import {
   FETCH_PRODUCTS_LIST,
   ADD_TO_CART,
   DELETE_FROM_CART,
-  SET_QUANTITY
+  SET_QUANTITY,
+  EMPTY_CART
 } from './constants';
 
 export const fetchProductsList = payload => ({
@@ -32,4 +33,9 @@ export const fetchProductsList = payload => ({
     type: `${SET_QUANTITY}`,
     payload,
   })
+  export const emptyCart = payload => ({
+    type: `${EMPTY_CART}`,
+    payload,
+  })
+
 

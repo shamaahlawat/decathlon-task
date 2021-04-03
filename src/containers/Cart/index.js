@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 
-import {fetchProductsList,deleteProductFromCart,setQuantity} from './actions';
+import {fetchProductsList,deleteProductFromCart,setQuantity,emptyCart} from './actions';
 import cartSagas from './sagas'
 import cartReducer from './reducer'
 import AppBarHeader from '../../components/AppBar';
@@ -18,7 +18,8 @@ function Cart(props) {
         history,
         deleteProductFromCart,
         setQuantity,
-        authenticationReducer
+        authenticationReducer,
+        emptyCart
     } = props
 
     const [count,setCount] = useState(1)
@@ -64,6 +65,16 @@ function Cart(props) {
                 }
             })
             setQuantity(products)
+    }
+
+    const proceedToCheckout = () => {
+        if(authenticationReducer.logged_in){
+            emptyCart()
+            history.push('/')
+        }
+        else{
+            history.push('/login')
+        }
     }
 
     return (
@@ -120,7 +131,7 @@ function Cart(props) {
                             className='submitButton'
                             fullWidth
                             color='primary'
-                            // onClick={() => addToCart(product)}
+                            onClick={proceedToCheckout}
                             >
                             Proceed to checkout
                        </Button>
@@ -143,7 +154,8 @@ const stateToProps = (state) => {
   const dispatchToProps = {
     fetchProductsList,
     deleteProductFromCart,
-    setQuantity
+    setQuantity,
+    emptyCart
   };
 
   export {cartSagas,cartReducer}

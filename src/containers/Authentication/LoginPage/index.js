@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
 
 import InputItem from '../../../components/InputItem'
-// import Form from '../../../components/Form'
 import {loginUser} from '../actions';
 
 import decathlon from '../../../assets/decathlon.png';
@@ -52,14 +51,12 @@ function LoginPage(props) {
               <img alt="not found" src={decathlon} height={100} />
               <div className="container">
                 <Fragment>
-                    {/* <Form> */}
                         <InputItem
                         label='Email'
                         placeholder='Enter your email'
                         name='email'
                         // value={values.email}
                         onChange={handleInputChange}
-                        // error={errors.email}
                         />
                         <InputItem
                         type='password'
@@ -68,7 +65,6 @@ function LoginPage(props) {
                         name='password'
                         // value={values.password}
                         onChange={handleInputChange}
-                        // error={errors.password}
                         />
                         <Button
                         type='submit'
@@ -79,7 +75,6 @@ function LoginPage(props) {
                         >
                         Login
                         </Button>
-                    {/* </Form> */}
                     </Fragment>
               </div>
           </Grid>

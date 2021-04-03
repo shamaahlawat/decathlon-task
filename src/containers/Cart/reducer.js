@@ -2,7 +2,8 @@ import {
     FETCH_PRODUCTS_LIST,
     ADD_TO_CART,
     DELETE_FROM_CART,
-    SET_QUANTITY
+    SET_QUANTITY,
+    EMPTY_CART
 } from './constants';
 
 import {tshirts,shorts,shoes,pants,bag,snorkelingmask,camp} from '../../assets'
@@ -115,6 +116,12 @@ const reducer = (state = INITIAL_STATE, { type, payload }) => {
             return {
                 ...state,
                 products_in_cart:payload
+            };
+        }
+        case `${EMPTY_CART}`: {
+            return {
+                ...state,
+                products_in_cart:[]
             };
         }
 
