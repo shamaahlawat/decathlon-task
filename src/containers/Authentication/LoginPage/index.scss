@@ -30,7 +30,9 @@
             display: flex;
             border-bottom: 1px solid white;
             margin-top: 20px;
-            cursor:pointer;
+            cursor: pointer;
+            flex-direction: column;
+            width: 62%;
             .submitButton{
                 background: #0579ba;
                 border: 1px solid white;

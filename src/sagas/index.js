@@ -1,5 +1,7 @@
 import { all } from 'redux-saga/effects';
 import { cartSagas } from '../containers/Cart';
+import { authenticationSaga } from '../containers/Authentication';
+
 // import { sagas as createSagas } from '../containers/CreateSurvey';
 // import { sagas as participantSagas } from '../containers/Participant';
 // import { memberListSaga} from '../containers/ManageUsers'
@@ -17,5 +19,6 @@ import { cartSagas } from '../containers/Cart';
 export default function* rootSaga() {
     yield all([
         ...cartSagas,
+        ...authenticationSaga
     ]);
 }

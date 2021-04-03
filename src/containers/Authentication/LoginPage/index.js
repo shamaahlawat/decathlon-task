@@ -1,17 +1,47 @@
-import React, { Fragment } from 'react'
+import React, { useEffect,Fragment,useState } from 'react'
+import {connect} from 'react-redux'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
 
 import InputItem from '../../../components/InputItem'
-import Form from '../../../components/Form'
+// import Form from '../../../components/Form'
+import {loginUser} from '../actions';
 
 import decathlon from '../../../assets/decathlon.png';
 import './index.scss';
 
 function LoginPage(props) {
     const {
-        history
+        history,
+        loginUser,
+        authenticationReducer
     } = props;
+
+    const [email,setEmail] = useState('')
+    const [password,setPassord] = useState('')
+
+    useEffect(() => {
+       if(authenticationReducer.logged_in){
+          history.push('/')
+       }
+    },[authenticationReducer])
+
+    const handleInputChange = (event) => {
+        if(event.target.name === 'email'){
+            setEmail(event.target.value)
+        }
+        else{
+            setPassord(event.target.value)
+        }
+    }
+
+    const onSubmitUserDetails = () => {
+        const payload = {
+            email:email,
+            password:password
+        }
+        loginUser(payload)
+    }
  
     return (
         <div className="LoginContainer">
@@ -22,13 +52,13 @@ function LoginPage(props) {
               <img alt="not found" src={decathlon} height={100} />
               <div className="container">
                 <Fragment>
-                    <Form>
+                    {/* <Form> */}
                         <InputItem
                         label='Email'
                         placeholder='Enter your email'
                         name='email'
                         // value={values.email}
-                        // onChange={handleInputChange}
+                        onChange={handleInputChange}
                         // error={errors.email}
                         />
                         <InputItem
@@ -37,7 +67,7 @@ function LoginPage(props) {
                         placeholder='Enter your password'
                         name='password'
                         // value={values.password}
-                        // onChange={handleInputChange}
+                        onChange={handleInputChange}
                         // error={errors.password}
                         />
                         <Button
@@ -45,10 +75,11 @@ function LoginPage(props) {
                         variant='contained'
                         className='submitButton'
                         fullWidth
+                        onClick={onSubmitUserDetails}
                         >
                         Login
                         </Button>
-                    </Form>
+                    {/* </Form> */}
                     </Fragment>
               </div>
           </Grid>
@@ -56,4 +87,16 @@ function LoginPage(props) {
     );
 }
 
-export default LoginPage;
+const stateToProps = (state) => {
+    const authenticationReducer = state.authenticationReducer;
+  
+    return {
+        authenticationReducer,
+    };
+  };
+
+const dispatchToProps = {
+    loginUser
+};
+
+export default connect(stateToProps, dispatchToProps) (LoginPage);

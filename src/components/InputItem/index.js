@@ -9,7 +9,7 @@ const InputItem = ({ name, label, value, error = null, onChange, ...other }) => 
       label={label}
       name={name}
       value={value}
-      // onChange={onChange}
+      onChange={onChange}
       {...other}
       // {...(error && { error: true, helperText: error })}
     />

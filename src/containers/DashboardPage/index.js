@@ -13,17 +13,17 @@ function DashboardPage(props) {
         fetchProductsList,
         addProductsToCart,
         cartReducer,
-        history
+        history,
+        authenticationReducer
     } = props
 
     useEffect(() => {
         fetchProductsList()
     }, [])
-   console.log('cartReducer',cartReducer)
 
     return (
         <div className="dashboardContainer">
-            <AppBarHeader history={history} productsData ={cartReducer} />
+            <AppBarHeader history={history} productsData ={cartReducer} authenticationReducer={authenticationReducer} />
             <div className="productList">
                 {
                     cartReducer.products_list.map((product) => {
@@ -37,9 +37,11 @@ function DashboardPage(props) {
 
 const stateToProps = (state) => {
     const cartReducer = state.cartReducer;
+    const authenticationReducer = state.authenticationReducer;
   
     return {
       cartReducer,
+      authenticationReducer
     };
   };
   const dispatchToProps = {
