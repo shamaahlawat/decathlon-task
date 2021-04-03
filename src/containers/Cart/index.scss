@@ -25,6 +25,15 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-evenly;
+                .incAndDec{
+                    line-height: 1;
+                    font-size: 20px;
+                    min-width: 65px;
+                    padding: 4px 15px;
+                    background: #bedeef;
+                    margin: 0 10px;
+                    cursor: pointer;
+                }
             }
         }
     }

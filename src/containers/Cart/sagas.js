@@ -6,9 +6,6 @@ import {
 import {
   FETCH_PRODUCTS_LIST
 } from './constants';
-// import {
-//     fetchProductList,
-// } from '../../utils/api';
 
 function* productListSaga({ payload }) {
     try {

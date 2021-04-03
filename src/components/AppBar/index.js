@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+    cursor:'pointer'
   },
 //   search: {
 //     position: 'relative',
@@ -82,13 +83,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AppBarHeader() {
+export default function AppBarHeader({productsData,history}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [totalItems,setTotalItems]= useState(0)
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  useEffect(() => {
+    setTotalItems(productsData && productsData.products_in_cart && productsData.products_in_cart.length)
+  },[productsData])
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -106,6 +112,10 @@ export default function AppBarHeader() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const goToPage = (page) => {
+      history.push(`${page}`)
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -136,7 +146,7 @@ export default function AppBarHeader() {
     >
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+          <Badge badgeContent={totalItems} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -168,7 +178,7 @@ export default function AppBarHeader() {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap onClick={() => goToPage('/')}>
             DECATHLON
           </Typography>
           {/* <div className={classes.search}>
@@ -189,8 +199,8 @@ export default function AppBarHeader() {
             <Typography className={classes.title} variant="h7" noWrap>
                 Login
             </Typography>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+            <IconButton aria-label="show 17 new notifications" color="inherit" onClick={() => goToPage('/cart')}>
+              <Badge badgeContent={totalItems} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>

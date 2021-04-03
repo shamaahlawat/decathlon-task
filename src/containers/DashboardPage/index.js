@@ -1,7 +1,7 @@
 import React , {useState,useEffect} from 'react'
 import { connect } from 'react-redux';
 
-import {fetchProductsList} from '../Cart/actions';
+import {fetchProductsList,addProductsToCart} from '../Cart/actions';
 import AppBarHeader from '../../components/AppBar'
 import ProductCard from './Components/ProductCard'
 
@@ -11,7 +11,9 @@ import './index.scss';
 function DashboardPage(props) { 
     const {
         fetchProductsList,
-        cartReducer
+        addProductsToCart,
+        cartReducer,
+        history
     } = props
 
     useEffect(() => {
@@ -21,11 +23,11 @@ function DashboardPage(props) {
 
     return (
         <div className="dashboardContainer">
-            <AppBarHeader />
+            <AppBarHeader history={history} productsData ={cartReducer} />
             <div className="productList">
                 {
                     cartReducer.products_list.map((product) => {
-                        return <ProductCard product={product} />
+                        return <ProductCard product={product} addProductsToCart={addProductsToCart} />
                     }) 
                 }
             </div>
@@ -41,7 +43,8 @@ const stateToProps = (state) => {
     };
   };
   const dispatchToProps = {
-    fetchProductsList
+    fetchProductsList,
+    addProductsToCart
   };
 
 export default connect(stateToProps, dispatchToProps) (DashboardPage);

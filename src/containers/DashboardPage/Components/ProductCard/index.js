@@ -23,8 +23,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProductCard({product}) {
+export default function ProductCard({product,addProductsToCart}) {
   const classes = useStyles();
+
+  const addToCart = (product) => {
+    addProductsToCart(product)
+  }
 
   return (
     <Card className={classes.root}>
@@ -42,7 +46,7 @@ export default function ProductCard({product}) {
               {product.description}
           </Typography>
           <Typography gutterBottom variant="h6" component="h3">
-              <sup style={{color:'red',fontSize:'20px'}}><sup>&#x20b9;</sup> 9500</sup> <span style={{fontSize:'12px',textDecoration: 'line-through'}}>&#x20b9; 9500</span>
+              <sup style={{color:'red',fontSize:'20px'}}><sup>&#x20b9;</sup> {product.discount_price}</sup> <span style={{fontSize:'12px',textDecoration: 'line-through'}}>&#x20b9; {product.actual_price}</span>
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
                FREE Delivery by Decathlon
@@ -56,6 +60,7 @@ export default function ProductCard({product}) {
             className='submitButton'
             fullWidth
             color='primary'
+            onClick={() => addToCart(product)}
             >
           Add to cart
         </Button>
