@@ -1,13 +1,26 @@
-import React from 'react'
+import React, {useState,useEffect } from 'react'
+import {connect} from 'react-redux'
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AppBarHeader from '../../components/AppBar'
+import {fetchProductsList} from './actions';
+import cartSagas from './sagas'
+import cartReducer from './reducer'
+import AppBarHeader from '../../components/AppBar';
 
 import './index.scss'
 
 import {tshirts} from '../../assets'
 
-function Cart() { 
+function Cart(props) { 
+    const {
+        fetchProductsList,
+        cartReducer
+    } = props
+
+    useEffect(() => {
+        fetchProductsList()
+    }, [])
+
     return (
         <div className="cartContainer">
             <AppBarHeader />
@@ -56,4 +69,16 @@ function Cart() {
     );
 }
 
-export default Cart;
+const stateToProps = (state) => {
+    const cartReducer = state.cartReducer;
+  
+    return {
+      cartReducer,
+    };
+  };
+  const dispatchToProps = {
+    fetchProductsList
+  };
+
+  export {cartSagas,cartReducer}
+  export default connect(stateToProps, dispatchToProps) (Cart);
