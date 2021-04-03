@@ -8,6 +8,7 @@ import {fetchProductsList,deleteProductFromCart,setQuantity,emptyCart} from './a
 import cartSagas from './sagas'
 import cartReducer from './reducer'
 import AppBarHeader from '../../components/AppBar';
+import EmptyCart from '../../components/EmptyCart';
 
 import './index.scss'
 
@@ -80,12 +81,13 @@ function Cart(props) {
     return (
         <div className="cartContainer">
             <AppBarHeader productsData={cartReducer} history={history} authenticationReducer={authenticationReducer} />
-            <div className="cartParent">
+            {
+                cartReducer.products_in_cart.length > 0 ?  
+                 <div className="cartParent">
                   <Grid xs={7} className="box-shadow">
                       <div className="cartWrapper">Delivering to 2176 U/E jind</div>
                       <div className="cartWrapper">Free home delivery</div>
                       {
-                          cartReducer.products_in_cart.length > 0 ? 
                           cartReducer.products_in_cart.map((product) => {
                             return <>
                                   <div className="cartItems flex flex-space-around">
@@ -106,7 +108,6 @@ function Cart(props) {
                               </div>
                             </>
                         })
-                        : <div className="noItem">No item added in cart</div>
                       }
                   </Grid>
                   <Grid xs={4} className="box-shadow orderSummary">
@@ -136,7 +137,9 @@ function Cart(props) {
                             Proceed to checkout
                        </Button>
                   </Grid>
-            </div>
+            </div> 
+            : <EmptyCart /> 
+            }
         </div>
     );
 }
