@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
-    cursor:'pointer'
+    cursor:'pointer',
+    marginLeft: '1.5%',
   },
   inputRoot: {
     color: 'inherit',

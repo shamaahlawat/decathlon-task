@@ -9,6 +9,7 @@ import cartSagas from './sagas'
 import cartReducer from './reducer'
 import AppBarHeader from '../../components/AppBar';
 import EmptyCart from '../../components/EmptyCart';
+import DeleteConfirmationModal from '../../components/DeleteConfimationModal';
 
 import './index.scss'
 
@@ -24,6 +25,8 @@ function Cart(props) {
     } = props
 
     const [sum,setSum] = useState(0)
+    const [openPopup,openDeletePopup] = useState(false)
+    const [idToBeDeleted,setItemIdToBeDeleted] = useState({})
 
     useEffect(() => {
         fetchProductsList()
@@ -37,13 +40,12 @@ function Cart(props) {
         setSum(sum)
     },[cartReducer])
 
-    const deleteProduct = (id) => {
-        deleteProductFromCart(id)
+    const deleteProduct = (product) => {
+        openDeletePopup(true)
+        setItemIdToBeDeleted(product)
     }
 
     const handleDecrement = (id) => {
-        // if(count > 1){
-            // setCount(count-1)
             let index = null
             let products = [...cartReducer.products_in_cart]
             for(let i=0; i<products.length;i++){
@@ -55,7 +57,6 @@ function Cart(props) {
                 products[index].quantity = products[index].quantity-1
                 setQuantity(products)
             }
-        // }
     }
 
     const handleIncrement = (id) => {
@@ -79,6 +80,15 @@ function Cart(props) {
             history.push('/login')
         }
     }
+
+    const handleDeleteClose = () => {
+        openDeletePopup(false)
+      }
+      
+      const handleDeleteConfirm = () => {
+        deleteProductFromCart(idToBeDeleted._id)
+        openDeletePopup(false)
+      }
 
     return (
         <div className="cartContainer">
@@ -104,13 +114,14 @@ function Cart(props) {
                                       </div>
                                   </div>
                                   <div className="itemDetails">
-                                      <DeleteIcon className="cursor-pointer" onClick={() => deleteProduct(product._id)} />
+                                      <DeleteIcon className="cursor-pointer" onClick={() => deleteProduct(product)} />
                                       <div>&#x20b9; <sub><span style={{fontSize:'20px'}}>{product.discount_price*product.quantity}</span></sub></div>
                                   </div>
                               </div>
                             </>
                         })
                       }
+                      <DeleteConfirmationModal openPopup={openPopup} idToBeDeleted={idToBeDeleted} handleDeleteClose={handleDeleteClose} handleDeleteConfirm={handleDeleteConfirm} />
                   </Grid>
                   <Grid xs={4} className="box-shadow orderSummary">
                       <div className="summary">

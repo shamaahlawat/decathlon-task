@@ -9,16 +9,9 @@ import {
 } from './constants';
 
 function* loginUserSaga({ payload }) {
-  let findIndex = users_list.findIndex((user) => user.email == payload.email)
     try {
-      if(findIndex === -1){
-        localStorage.removeItem('user'); 
-        yield put(loginUserFailed());
-      }
-      else{
         localStorage.setItem('user', JSON.stringify(payload)); 
         yield put(loginUserSuccess(payload));
-      }
     } catch (e) {
         yield put(loginUserFailed(e));
     }

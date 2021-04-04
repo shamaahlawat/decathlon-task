@@ -22,7 +22,7 @@ const reducer = (state = INITIAL_STATE, { type, payload }) => {
         case `${LOGIN_USER}_FAILED`: {
             return {
                 ...state,
-                message:'credentials not correct',
+                message:'Credentials not correct',
                 logged_in:false
             };
         }

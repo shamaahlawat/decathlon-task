@@ -2,12 +2,19 @@ import React, { useEffect,Fragment,useState } from 'react'
 import {connect} from 'react-redux'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import InputItem from '../../../components/InputItem'
 import {loginUser} from '../actions';
 
 import decathlon from '../../../assets/decathlon.png';
+import {users_list} from '../../../utils/ExistingUsers'
 import './index.scss';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 function LoginPage(props) {
     const {
@@ -18,6 +25,8 @@ function LoginPage(props) {
 
     const [email,setEmail] = useState('')
     const [password,setPassord] = useState('')
+    const [snackOpen, setSnackOpen] = React.useState(false);
+    const [showMessage,setShowMessage] = useState({success:true,message:'User logged in successfully',error:''})
 
     useEffect(() => {
        if(authenticationReducer.logged_in){
@@ -39,11 +48,33 @@ function LoginPage(props) {
             email:email,
             password:password
         }
-        loginUser(payload)
+        let findIndex = users_list.findIndex((user) => (user.email == payload.email) && (user.password == payload.password) )
+        console.log('findIndex',findIndex)
+        if(findIndex !== -1){
+            setShowMessage({success:'success',message:'User logged in successfully',error:''})
+            setSnackOpen(true)
+            setTimeout(() => {
+                loginUser(payload) 
+            },100)
+        }
+        else{
+            setShowMessage({success:'error',message:`User doesn't exist`,error:'Please enter correct email and password'})
+            setSnackOpen(true)
+        }
     }
+
+    const handleSnackClose = (event, reason) => {
+        setSnackOpen(false);
+      };
  
     return (
         <div className="LoginContainer">
+        <Snackbar open={snackOpen} autoHideDuration={3000} onClose={handleSnackClose}>
+          {showMessage.message !== '' && <Alert onClose={handleSnackClose} severity={showMessage.success}>
+            {showMessage.message}
+           </Alert>
+        }
+      </Snackbar>
         <Grid xs={7} className="firstGrid">
             <div className="heading">Welcome to DECATHLON</div>
         </Grid>
@@ -66,6 +97,7 @@ function LoginPage(props) {
                         // value={values.password}
                         onChange={handleInputChange}
                         />
+                         <div className="error">{showMessage.error}</div>
                         <Button
                         type='submit'
                         variant='contained'
