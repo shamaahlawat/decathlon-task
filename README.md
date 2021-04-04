@@ -1,3 +1,9 @@
+Project deployed - decathlon-task.surge.sh
+
+Project Video - 
+https://user-images.githubusercontent.com/26778977/113514207-f39b5180-958a-11eb-88cf-86022cdb8cd7.mov
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
