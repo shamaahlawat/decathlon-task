@@ -1,5 +1,6 @@
 import {
   LOGIN_USER,
+  LOGOUT_USER
 } from './constants';
 
 export const loginUser = payload => ({
@@ -14,5 +15,10 @@ export const loginUser = payload => ({
   
   export const loginUserFailed = payload => ({
     type: `${LOGIN_USER}_FAILED`,
+    payload,
+  })
+
+  export const logoutUser = payload => ({
+    type: `${LOGOUT_USER}`,
     payload,
   })

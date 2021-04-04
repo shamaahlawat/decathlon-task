@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AppBarHeader({productsData,history,authenticationReducer}) {
+export default function AppBarHeader({productsData,history,authenticationReducer,logoutUser}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -79,6 +79,13 @@ export default function AppBarHeader({productsData,history,authenticationReducer
       history.push(`${page}`)
   }
 
+  const handleLogout = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    logoutUser()
+    history.push('/login')
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -90,8 +97,8 @@ export default function AppBarHeader({productsData,history,authenticationReducer
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -139,6 +146,7 @@ export default function AppBarHeader({productsData,history,authenticationReducer
           <div className={classes.sectionDesktop}>
               {
                   authenticationReducer.logged_in ? 
+                  <>
                   <IconButton
                   edge="end"
                   aria-label="account of current user"
@@ -149,6 +157,7 @@ export default function AppBarHeader({productsData,history,authenticationReducer
                 >
                   <AccountCircle />
                 </IconButton>
+                </>
                 :            
                  <Typography className={classes.title} variant="h7" noWrap onClick={() => goToPage('/login')}>
                     Login

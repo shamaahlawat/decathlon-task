@@ -1,5 +1,6 @@
 import {
-    LOGIN_USER
+    LOGIN_USER,
+    LOGOUT_USER
 } from './constants';
 
 const INITIAL_STATE = {
@@ -23,6 +24,12 @@ const reducer = (state = INITIAL_STATE, { type, payload }) => {
             return {
                 ...state,
                 message:'Credentials not correct',
+                logged_in:false
+            };
+        }
+        case `${LOGOUT_USER}`: {
+            return {
+                ...state,
                 logged_in:false
             };
         }

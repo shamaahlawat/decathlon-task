@@ -2,6 +2,7 @@ import React , {useState,useEffect} from 'react'
 import { connect } from 'react-redux';
 
 import {fetchProductsList,addProductsToCart} from '../Cart/actions';
+import {logoutUser} from '../Authentication/actions'
 import AppBarHeader from '../../components/AppBar'
 import ProductCard from './Components/ProductCard'
 
@@ -14,7 +15,8 @@ function DashboardPage(props) {
         addProductsToCart,
         cartReducer,
         history,
-        authenticationReducer
+        authenticationReducer,
+        logoutUser
     } = props
 
     useEffect(() => {
@@ -23,7 +25,7 @@ function DashboardPage(props) {
 
     return (
         <div className="dashboardContainer">
-            <AppBarHeader history={history} productsData ={cartReducer} authenticationReducer={authenticationReducer} />
+            <AppBarHeader history={history} productsData ={cartReducer} authenticationReducer={authenticationReducer} logoutUser={logoutUser} />
             <div className="productList">
                 {
                     cartReducer.products_list.map((product) => {
@@ -46,7 +48,8 @@ const stateToProps = (state) => {
   };
   const dispatchToProps = {
     fetchProductsList,
-    addProductsToCart
+    addProductsToCart,
+    logoutUser
   };
 
 export default connect(stateToProps, dispatchToProps) (DashboardPage);

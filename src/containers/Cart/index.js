@@ -7,6 +7,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
 import {fetchProductsList,deleteProductFromCart,setQuantity,emptyCart} from './actions';
+import {logoutUser} from '../Authentication/actions'
 import cartSagas from './sagas'
 import cartReducer from './reducer'
 import AppBarHeader from '../../components/AppBar';
@@ -27,7 +28,8 @@ function Cart(props) {
         deleteProductFromCart,
         setQuantity,
         authenticationReducer,
-        emptyCart
+        emptyCart,
+        logoutUser
     } = props
 
     const [sum,setSum] = useState(0)
@@ -108,7 +110,7 @@ function Cart(props) {
                         Your order successful
                     </Alert>
                </Snackbar>
-            <AppBarHeader productsData={cartReducer} history={history} authenticationReducer={authenticationReducer} />
+            <AppBarHeader productsData={cartReducer} history={history} authenticationReducer={authenticationReducer} logoutUser={logoutUser} />
             {
                 cartReducer.products_in_cart.length > 0 ?  
                  <div className="cartParent">
@@ -187,7 +189,8 @@ const stateToProps = (state) => {
     fetchProductsList,
     deleteProductFromCart,
     setQuantity,
-    emptyCart
+    emptyCart,
+    logoutUser
   };
 
   export {cartSagas,cartReducer}
