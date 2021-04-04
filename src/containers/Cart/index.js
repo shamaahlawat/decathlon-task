@@ -23,7 +23,6 @@ function Cart(props) {
         emptyCart
     } = props
 
-    const [count,setCount] = useState(1)
     const [sum,setSum] = useState(0)
 
     useEffect(() => {
@@ -33,7 +32,7 @@ function Cart(props) {
     useEffect(() => {
         let sum = 0;
         cartReducer.products_in_cart && cartReducer.products_in_cart.map((product) => {
-             sum = sum + product.discount_price
+             sum = sum + (product.discount_price*product.quantity)
         })
         setSum(sum)
     },[cartReducer])
@@ -43,28 +42,31 @@ function Cart(props) {
     }
 
     const handleDecrement = (id) => {
-        if(count >= 0){
-            setCount(count-1)
+        // if(count > 1){
+            // setCount(count-1)
+            let index = null
             let products = [...cartReducer.products_in_cart]
-            products.map((product) => {
-                if(product._id === id){
-                   return product.quantity = count-1,
-                   product.discount_price = count*product.discount_price
+            for(let i=0; i<products.length;i++){
+                if(products[i]._id === id){
+                    index = i
                 }
-            })
-            setQuantity(products)
-        }
+            }
+            if(products[index].quantity > 1){
+                products[index].quantity = products[index].quantity-1
+                setQuantity(products)
+            }
+        // }
     }
 
     const handleIncrement = (id) => {
-            setCount(count+1)
+            let index = null
             let products = [...cartReducer.products_in_cart]
-            products.map((product) => {
-                if(product._id === id){
-                   return product.quantity = count+1,
-                   product.discount_price = count*product.discount_price
+            for(let i=0; i<products.length;i++){
+                if(products[i]._id === id){
+                    index = i
                 }
-            })
+            }
+            products[index].quantity = products[index].quantity + 1
             setQuantity(products)
     }
 
@@ -85,7 +87,7 @@ function Cart(props) {
                 cartReducer.products_in_cart.length > 0 ?  
                  <div className="cartParent">
                   <Grid xs={7} className="box-shadow">
-                      <div className="cartWrapper">Delivering to 2176 U/E jind</div>
+                      <div className="cartWrapper">Delivering to <b>2176 U/E jind</b></div>
                       <div className="cartWrapper">Free home delivery</div>
                       {
                           cartReducer.products_in_cart.map((product) => {
@@ -103,7 +105,7 @@ function Cart(props) {
                                   </div>
                                   <div className="itemDetails">
                                       <DeleteIcon className="cursor-pointer" onClick={() => deleteProduct(product._id)} />
-                                      <div>&#x20b9; <sub><span style={{fontSize:'20px'}}>{product.discount_price}</span></sub></div>
+                                      <div>&#x20b9; <sub><span style={{fontSize:'20px'}}>{product.discount_price*product.quantity}</span></sub></div>
                                   </div>
                               </div>
                             </>
