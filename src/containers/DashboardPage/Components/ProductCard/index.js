@@ -77,7 +77,12 @@ export default function ProductCard({product,addProductsToCart}) {
               {product.description}
           </Typography>
           <Typography gutterBottom variant="h6" component="h3">
-              <sup style={{color:'red',fontSize:'20px'}}><sup>&#x20b9;</sup> {product.discount_price}</sup> <span style={{fontSize:'12px',textDecoration: 'line-through'}}>&#x20b9; {product.actual_price}</span>
+              <div>
+                <span className="rupee">&#x20b9;</span> 
+                <span className="discountPrice">{product.discount_price}</span>
+                <span className="actualPrice">&#x20b9;{product.actual_price}</span>
+                <span className="save">Save &#x20b9; {product.actual_price - product.discount_price }</span>
+              </div>
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
                FREE Delivery by Decathlon

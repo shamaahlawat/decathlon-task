@@ -8,4 +8,22 @@
         flex-wrap: wrap;
         margin: 70px 25px 25px 25px;
     }
+    .rupee{
+        font-size: 14px;
+        margin-right: 4px;
+        color: red;
+    }
+    .discountPrice{
+        color: red;
+        font-size: 24px;
+    }
+    .actualPrice{
+        font-size: 12px;
+        margin-left: 8px;
+        text-decoration: line-through;
+    }
+    .save{
+        font-size: 16px;
+        margin-left: 20px;
+    }
 }

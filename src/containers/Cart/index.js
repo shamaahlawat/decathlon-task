@@ -36,6 +36,7 @@ function Cart(props) {
     const [openPopup,openDeletePopup] = useState(false)
     const [idToBeDeleted,setItemIdToBeDeleted] = useState({})
     const [snackOpen, setSnackOpen] = React.useState(false);
+    const [totalProducts,setTotalProducts] = useState(0)
 
     useEffect(() => {
         fetchProductsList()
@@ -43,9 +44,12 @@ function Cart(props) {
 
     useEffect(() => {
         let sum = 0;
+        let total_products = 0
         cartReducer.products_in_cart && cartReducer.products_in_cart.map((product) => {
              sum = sum + (product.discount_price*product.quantity)
+             total_products = total_products + product.quantity
         })
+        setTotalProducts(total_products)
         setSum(sum)
     },[cartReducer])
 
@@ -133,7 +137,7 @@ function Cart(props) {
                                   </div>
                                   <div className="itemDetails">
                                       <DeleteIcon className="cursor-pointer" onClick={() => deleteProduct(product)} />
-                                      <div>&#x20b9; <sub><span style={{fontSize:'20px'}}>{product.discount_price*product.quantity}</span></sub></div>
+                                      <div>&#x20b9; <sub><span style={{fontSize:'16px'}}>{product.discount_price*product.quantity}</span></sub></div>
                                   </div>
                               </div>
                             </>
@@ -148,6 +152,10 @@ function Cart(props) {
                       <div className="flex outer-parent">
                           <div>Total Products</div>
                           <div>&#x20b9; <sub><span style={{fontSize:'20px'}}>{sum}</span></sub></div>
+                      </div>
+                      <div className="flex outer-parent">
+                          <div>Total Items</div>
+                          <div>{totalProducts}</div>
                       </div>
                       <div className="flex outer-parent">
                           <div>Shipping</div>
