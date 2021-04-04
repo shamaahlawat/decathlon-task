@@ -23,6 +23,13 @@ const DashboardPage = lazy(() => {
      );
  });
 
+ const OrderConfirmation = lazy(() => {
+    const Structure = import('./containers/OrderConfirmation');
+     return Promise.all([Structure, new Promise(resolve => setTimeout(resolve, 300))]).then(
+         ([moduleExports]) => moduleExports
+     );
+ });
+
 class Routes extends React.Component {
     constructor(props) {
         super(props)
@@ -59,6 +66,15 @@ class Routes extends React.Component {
                         render={props => (
                             <Suspense fallback={<div>Loading ...</div>}>
                                 <Cart {...props} />
+                            </Suspense>
+                        )}
+                    />
+                     <Route
+                        path="/order-confirmation"
+                        exact
+                        render={props => (
+                            <Suspense fallback={<div>Loading ...</div>}>
+                                <OrderConfirmation {...props} />
                             </Suspense>
                         )}
                     />

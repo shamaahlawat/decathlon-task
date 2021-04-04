@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import {fetchProductsList,deleteProductFromCart,setQuantity,emptyCart} from './actions';
 import cartSagas from './sagas'
@@ -12,6 +14,10 @@ import EmptyCart from '../../components/EmptyCart';
 import DeleteConfirmationModal from '../../components/DeleteConfimationModal';
 
 import './index.scss'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function Cart(props) { 
     const {
@@ -27,6 +33,7 @@ function Cart(props) {
     const [sum,setSum] = useState(0)
     const [openPopup,openDeletePopup] = useState(false)
     const [idToBeDeleted,setItemIdToBeDeleted] = useState({})
+    const [snackOpen, setSnackOpen] = React.useState(false);
 
     useEffect(() => {
         fetchProductsList()
@@ -74,9 +81,9 @@ function Cart(props) {
     const proceedToCheckout = () => {
         if(authenticationReducer.logged_in){
             emptyCart()
-            history.push('/')
+                history.push('/order-confirmation')
         }
-        else{
+        else {
             history.push('/login')
         }
     }
@@ -90,8 +97,17 @@ function Cart(props) {
         openDeletePopup(false)
       }
 
+      const handleSnackClose = (event, reason) => {
+        setSnackOpen(false);
+      };
+
     return (
         <div className="cartContainer">
+              <Snackbar open={snackOpen} autoHideDuration={3000} onClose={handleSnackClose}>
+                    <Alert onClose={handleSnackClose} severity={'success'}>
+                        Your order successful
+                    </Alert>
+               </Snackbar>
             <AppBarHeader productsData={cartReducer} history={history} authenticationReducer={authenticationReducer} />
             {
                 cartReducer.products_in_cart.length > 0 ?  
@@ -103,7 +119,7 @@ function Cart(props) {
                           cartReducer.products_in_cart.map((product) => {
                             return <>
                                   <div className="cartItems flex flex-space-around">
-                                  <div><img src={product.image} width={120} /></div>
+                                  <div><img src={product.image} width={80} /></div>
                                   <div className="itemDetails">
                                       <div className="title">{product.name}</div>
                                       <div className="quantity">
@@ -151,7 +167,7 @@ function Cart(props) {
                        </Button>
                   </Grid>
             </div> 
-            : <EmptyCart /> 
+            : <EmptyCart history={history} /> 
             }
         </div>
     );

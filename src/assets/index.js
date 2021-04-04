@@ -7,6 +7,7 @@ import bag from './bag.jpeg'
 import snorkelingmask from './snorkelingmask.jpeg';
 import camp from './camp.jpeg';
 import emptycart from './emptycart.png';
+import confirm from './confirm.jpeg'
 
 export {
     decathlon,
@@ -17,5 +18,6 @@ export {
     bag,
     camp,
     snorkelingmask,
-    emptycart
+    emptycart,
+    confirm
 }

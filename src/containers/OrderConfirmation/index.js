@@ -1,16 +1,16 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
-import emptycart from '../../assets/emptycart.png';
+import confirm from '../../assets/confirm.jpeg';
 import './index.scss';
 
-function EmptyCart({history}) { 
+function OrderConfirmation({history}) { 
     const goToHomePage = () => {
         history.push('/')
     }
     return (
-        <div className="EmptyCartContainer">
-              <img alt="not found" src={emptycart} />
-              <div className="text">Your shopping cart is empty .</div>
+        <div className="OrderConfirmationContainer">
+              <img alt="not found" src={confirm} />
+              <div className="text">Order Confirmed</div>
               <Button
                 type='submit'
                 variant='contained'
@@ -19,10 +19,10 @@ function EmptyCart({history}) {
                 color='primary'
                 onClick={goToHomePage}
                 >
-                Home Page
+                Go to Home Page
             </Button>
         </div>
     );
 }
 
-export default EmptyCart;
+export default OrderConfirmation;
