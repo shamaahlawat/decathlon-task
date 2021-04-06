@@ -9,8 +9,6 @@ https://user-images.githubusercontent.com/26778977/113514207-f39b5180-958a-11eb-
 2) yarn start
 3) Login Credentials - 
 
- a) email:'shama_ahlawat@mckinsey.com',
-    password:'admin@123'
  b) email:'decathlon@gmail.com',
     password:'admin@123'
  c) email:'shamaahlawat@gmail.com',
